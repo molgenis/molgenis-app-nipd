@@ -1,0 +1,12 @@
+#plugin-container {
+	background: #FFF;
+}
+
+.table th, .table td { 
+     border-top: none;
+     border: 0px;
+ }
+
+.tdLabel {
+	text-align: right;
+}
