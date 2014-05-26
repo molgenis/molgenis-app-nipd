@@ -56,7 +56,8 @@
 				} ], 'error');
 			} else {
 				$('#showResult').attr('style', 'display:block');
-				$('#results').html(getRisk($('#zscore').val(), $('#llim').val(), $('#ulim').val(), $('#apriori').val(), $('#varcof').val()));
+				var apriori = $('#apriori').val() * 100;
+				$('#results').html(getRisk($('#zscore').val(), $('#llim').val(), $('#ulim').val(), apriori, $('#varcof').val()));
 
 				$('#llimResult').html($('#llim').val());
 				$('#ulimResult').html($('#ulim').val());
