@@ -11,6 +11,7 @@ import java.io.IOException;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.molgenis.framework.ui.MolgenisPluginController;
 import org.springframework.stereotype.Controller;
@@ -116,14 +117,7 @@ public class HomeController extends MolgenisPluginController
 		}
 		finally
 		{
-			try
-			{
-				outputStream.close();
-			}
-			catch (IOException e)
-			{
-				logger.error(e);
-			}
+			IOUtils.closeQuietly(outputStream);
 		}
 
 		return outputStream.toString().trim();
