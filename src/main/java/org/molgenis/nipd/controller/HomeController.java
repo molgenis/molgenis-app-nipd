@@ -11,6 +11,7 @@ import java.io.IOException;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.log4j.Logger;
 import org.molgenis.framework.ui.MolgenisPluginController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,17 +25,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(URI)
 public class HomeController extends MolgenisPluginController
 {
+	private static final Logger logger = Logger.getLogger(HomeController.class);
 	public static final String ID = "home";
 	public static final String URI = MolgenisPluginController.PLUGIN_URI_PREFIX + ID;
-	private boolean onMac, onUnix;
-	
+	private boolean onMac, onLinux;
+
 	public HomeController()
 	{
 		super(URI);
-		
-//		OSValidator osValidator = new OSValidator();
-		this.onMac = OSValidator.isMac();
-		this.onUnix = OSValidator.isUnix();
+
+		this.onMac = org.apache.commons.lang3.SystemUtils.IS_OS_MAC;
+		this.onLinux = org.apache.commons.lang3.SystemUtils.IS_OS_LINUX;
 	}
 
 	@RequestMapping
@@ -53,7 +54,7 @@ public class HomeController extends MolgenisPluginController
 		{
 			String binary = "No executable";
 			if (onMac) binary = "trisomy_risk_mac";
-			if (onUnix) binary = "trisomy_risk_unix";
+			if (onLinux) binary = "trisomy_risk_unix";
 			String pathToBinary = this.getClass().getResource("/tools/" + binary).getPath();
 			File workDir = new File(pathToBinary.substring(0, pathToBinary.length() - binary.length()));
 
@@ -61,9 +62,9 @@ public class HomeController extends MolgenisPluginController
 
 			return "" + Math.round(Double.valueOf(executeCommand(command, workDir)));
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
-			e.printStackTrace();
+			logger.error(e);
 			return "Something went wrong!";
 		}
 	}
@@ -78,7 +79,7 @@ public class HomeController extends MolgenisPluginController
 		{
 			String binary = "No executable";
 			if (onMac) binary = "trisomy_a_priori_risk_mac";
-			if (onUnix) binary = "trisomy_a_priori_risk_unix";
+			if (onLinux) binary = "trisomy_a_priori_risk_unix";
 			String pathToBinary = this.getClass().getResource("/tools/" + binary).getPath();
 			File workDir = new File(pathToBinary.substring(0, pathToBinary.length() - binary.length()));
 
@@ -90,9 +91,9 @@ public class HomeController extends MolgenisPluginController
 
 			return "" + chance;
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
-			e.printStackTrace();
+			logger.error(e);
 			return "Improper values!";
 		}
 	}
@@ -111,7 +112,18 @@ public class HomeController extends MolgenisPluginController
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			logger.error(e);
+		}
+		finally
+		{
+			try
+			{
+				outputStream.close();
+			}
+			catch (IOException e)
+			{
+				logger.error(e);
+			}
 		}
 
 		return outputStream.toString().trim();

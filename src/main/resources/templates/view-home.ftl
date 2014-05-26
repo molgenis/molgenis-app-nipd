@@ -22,12 +22,12 @@
 			<@tableRow "varcof"  "" "Variation coefficient" "0.5" "%" "" />
 			<@tableRow "zscore"  "" "Observed Z score" "4" "" "" />
 			<tr class="muted">
-				<td class="tdLabel" style="text-align:right">A priori risk of trisomy (0...1)</td>
+				<td class="tdLabel" style="text-align:right">A priori risk of trisomy (0...1)*</td>
 				<td><input id="apriori" step="any" class="span9" value="" style=""> </td>
 				<td class="span2"><button id="calculate-risk-btn" type="submit" class="btn btn-primary"><b>Go</b> <i class="icon-chevron-right icon-white"></i></button></td>
 			</tr>
 			<tr bgcolor='#bce8f1'>
-				<td colspan="2"><p><i>The a priori risk may be estimated based on maternal/gestational age and the type of trisomy.</i></p></td>
+				<td colspan="2"><p><i>*The a priori risk may be estimated based on maternal/gestational age and the type of trisomy.</i></p></td>
 				<td></td>
 			</tr>
 			<@tableRow "gestAge" "bgcolor='#bce8f1'"   "Gestational age" "" "weeks" "" />
@@ -63,11 +63,9 @@
 	</div>
 
 	<div class="row-fluid">
-		<P CLASS="muted">Please contact G.J. te Meerman for further information via <I>g.j.te.meerman@umcg.nl</I>.</P>
+		<P CLASS="muted">Please contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</P>
+		<P CLASS="muted">A stand alone version of this software <a href="https://molgenis26.target.rug.nl/downloads/nipd_standalone.zip">here</a>.</P>
 	</div>	
 </div>
 
-<#-- why problem with variable in @footer/ ??-->
-</body>
-</html>
-
+<@footer/>

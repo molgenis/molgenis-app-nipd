@@ -1,12 +1,10 @@
 (function($, molgenis) {
 	"use strict";
 
-	var self = molgenis.usermanager = molgenis.usermanager || {};
-
 	function getAPrioriRisk(gestAge, matAge, trisomyType) {
 		$.ajax({
 			type : 'GET',
-			url : '/plugin/home/getAPrioriRisk/' + gestAge + '/' + matAge + '/' + trisomyType,
+			url : molgenis.getContextUrl() + '/getAPrioriRisk/' + gestAge + '/' + matAge + '/' + trisomyType,
 			success : function(text) {
 				$('#apriori').val(text);
 				if ("?" == text) {
@@ -21,7 +19,7 @@
 	function getRisk(zscore, llim, ulim, apriori, varcof) {
 		$.ajax({
 			type : 'GET',
-			url : '/plugin/home/getRisk/' + zscore + '/' + llim + '/' + ulim + '/' + apriori + '/' + varcof,
+			url : molgenis.getContextUrl() + '/getRisk/' + zscore + '/' + llim + '/' + ulim + '/' + apriori + '/' + varcof,
 			success : function(risk) {
 				$('#trisomyChance').html(risk);
 				$('#showResult').attr('style', 'display:block');
@@ -67,12 +65,11 @@
 				$('#aprioriResult').html($('#apriori').val());
 			}
 		});
-
+		
 		$('#calculate-a-priori-risk-btn').click(function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			getAPrioriRisk($('#gestAge').val(), $('#matAge').val(), $('#trisomyType .active').val());
 		});
-
 	});
 }($, window.top.molgenis = window.top.molgenis || {}));
