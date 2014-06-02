@@ -89,9 +89,8 @@ public class HomeController extends MolgenisPluginController
 
 			// return value x means a chance of 1 in x; but we want to return 1/x
 			String value = executeCommand(command, workDir);
-			Double chance = 1 / Double.valueOf(value);
 
-			return "" + chance;
+			return "" + Math.round(Double.valueOf(value));
 		}
 		catch (Throwable e)
 		{
