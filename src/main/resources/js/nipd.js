@@ -50,13 +50,13 @@
 				molgenis.createAlert([ {
 					'message' : 'Observed Z score must have a value -5 and 40.'
 				} ], 'error');
-			} else if ("" === $('#apriori').val() || $('#apriori').val() < 0 || 1 < $('#apriori').val()) {
+			} else if ("" === $('#apriori').val() || $('#apriori').val() <= 0) {
 				molgenis.createAlert([ {
-					'message' : 'A priori risk of trisomy must have a value 0 and 1.'
+					'message' : 'A priori risk of trisomy must have a positive value.'
 				} ], 'error');
 			} else {
 				$('#showResult').attr('style', 'display:block');
-				var apriori = $('#apriori').val() * 100;
+				var apriori = $('#apriori').val();
 				$('#results').html(getRisk($('#zscore').val(), $('#llim').val(), $('#ulim').val(), apriori, $('#varcof').val()));
 
 				$('#llimResult').html($('#llim').val());

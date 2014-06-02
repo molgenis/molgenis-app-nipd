@@ -61,7 +61,8 @@ public class HomeController extends MolgenisPluginController
 
 			String command = pathToBinary + " " + zscore + " " + llim + " " + ulim + " " + apriori + " " + varcof;
 
-			return "" + Math.round(Double.valueOf(executeCommand(command, workDir)));
+			// round on two decimals
+			return "" + ((double)  Math.round(Double.valueOf(executeCommand(command, workDir)) * 100)) / 100;
 		}
 		catch (Throwable e)
 		{
