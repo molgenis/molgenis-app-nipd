@@ -10,6 +10,7 @@
 
 <div class="container-fluid">
 	<div class="row-fluid">
+		<a href="http://www.umcg.nl/NL/UMCG/Afdelingen/Genetica/Pages/default.aspx"><img src="img/umcg.png" /></a>
 		<H1>Non-invasive prenatal testing</H1>
 	</div>
 	<div class="row-fluid">
@@ -59,8 +60,8 @@
 	</div>
 
 	<div class="row-fluid">
-		<P CLASS="muted">Please contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</P>
-		<P CLASS="muted">A stand alone version of this software can be downloaded <a href="https://molgenis26.target.rug.nl/downloads/nipd_standalone.zip">here</a>.</P>
+		<P CLASS="muted">Please see <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</P>
+		<#--P CLASS="muted">A stand alone version of this software can be downloaded <a href="https://molgenis26.target.rug.nl/downloads/nipd_standalone.zip">here</a>.</P-->
 	</div>	
 </div>
 
