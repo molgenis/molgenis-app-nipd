@@ -1,0 +1,12 @@
+# Compile:
+fpc -Mdelphi commandline_risk_nipt_augustus.dpr
+
+
+
+
+./commandline_risk_nipt_augustus 2 30 .5 200 4 0.11 13 3 .3 30
+no extrapolation possible, data outside table 13
+no extrapolation possible, data outside table 18
+no extrapolation possible, data outside table 21
+lower_limit upper_limit variation_coefficient a_priori_risk_p Observed_Z_score Ptrisomy_p table$ gest_age mat_age
+  2.00	 	30.00	 	0.500	 			  4.500	 		  0.110			   0.012	  13.4	 2.822
