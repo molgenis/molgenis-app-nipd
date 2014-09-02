@@ -13,11 +13,14 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.lf5.util.ResourceUtils;
 import org.molgenis.framework.ui.MolgenisPluginController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.common.io.Resources;
 
 /**
  * Controller that handles home page requests
@@ -82,7 +85,7 @@ public class HomeController extends MolgenisPluginController
 			String binary = "No executable";
 			if (onMac) binary = "trisomy_a_priori_risk_mac";
 			if (onLinux) binary = "trisomy_a_priori_risk_unix";
-			String pathToBinary = this.getClass().getResource("/tools/" + binary).getPath();
+			String pathToBinary = Resources.getResource(this.getClass(), "/tools/" + binary).getPath();
 			File workDir = new File(pathToBinary.substring(0, pathToBinary.length() - binary.length()));
 
 			String command = pathToBinary + " " + gestationalAgeWeeks + " " + maternalAgeYears + " " + trisomyType;
@@ -94,8 +97,9 @@ public class HomeController extends MolgenisPluginController
 		}
 		catch (Throwable e)
 		{
+			e.printStackTrace();
 			logger.error(e);
-			return "Improper values!";
+			return "Something went wrong! Check whether Gerard's program is chmod +x.";
 		}
 	}
 
