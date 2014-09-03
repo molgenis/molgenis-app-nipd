@@ -2,6 +2,12 @@ library(fBasics)
 library(gdata)
 require(akima)
 
+#` Interpolate risk table.
+#` Uses linear bivariate interpolation.
+#` @todo this is not exactly the same as bilinear interpolation!
+#` @param t table, read in using read.table
+#` @param ga gestational age in weeks
+#` @param ma mother's age in years
 interpolateRisk <- function (t, ga, ma) {
 	m = sapply(dimnames(t)[[1]], strtoi)
 	g = sapply(names(t), function(x) strtoi(substring(x, 2)))
@@ -11,6 +17,9 @@ interpolateRisk <- function (t, ga, ma) {
 	linearInterpp(gvec, mvec, rvec, ga, ma)$z
 }
 
+#` Interpolates a priori risk from three risk tables
+#` @param ga gestational age in weeks
+#` @param ma mother's age in years
 aprioriRisk <- function(ga, ma) {
 	T13 = read.table("T13risk.txt", header=TRUE, skip=2);
 	T18 = read.table("T18risk.txt", header=TRUE, skip=2);
@@ -23,15 +32,20 @@ aprioriRisk <- function(ga, ma) {
 
 aprioriRisk(ga = 13, ma = 44)
 
-cumnor <- function(q){
-	pnorm(q, mean = 0, sd = 1, lower.tail = FALSE, log.p = FALSE)
+#` Cumulative normal distribution.
+cumnor <- function(x){
+	pnorm(x, mean = 0, sd = 1, lower.tail = FALSE, log.p = FALSE)
 }
 
-risk <- function(data) {
-	varcof = data[5]
-	z_observed = data[1]
-	lower = 0.5 * data[2] / varcof
-	upper = 0.5 * data[3] / varcof
+#` Computes risk.
+#` @param z_observed ?
+#` @param lower ?
+#` @param upper ?
+#` @param a_priori the a priori risk
+#` @varcof ?
+risk <- function(z_observed, lower, upper, a_priori, varcof) {
+	lower = 0.5 * lower / varcof
+	upper = 0.5 * upper / varcof
 	if( upper - lower < 0.002 ){
 		#this is done to handle the case that the upper and lower limit are
         #identical
@@ -39,21 +53,23 @@ risk <- function(data) {
 		upper = upper + 0.001
 	}
 	interval = upper - lower
-	a_priori = 1 / data[4]
-	ptris3 = (cumnor2(z_observed - upper) - cumnor2(z_observed - lower)) / interval;
+	a_priori = 1 / a_priori
+	ptris3 = (cumnor(z_observed - upper) - cumnor2(z_observed - lower)) / interval;
 	#this is the average likelihood of the Normal distribution
     #over an interval Z_observed - upper to Z_observed - lower
     #this result is not obtained by direct integration,
     #but by using an accurate function for the cumulative normal distribution
 	ptris3 = ptris3 * a_priori / (ptris3 * a_priori + (1 - a_priori) * dnorm(z_observed))
-	data.frame(varcof = data[5], z_observed = data[1], 
+	data.frame(z_observed = z_observed, 
 		lower = lower, upper = upper, interval = interval, 
 		a_priori = a_priori,
-		ptris = ptris3 * 100)
+		ptris = ptris3 * 100, varcof = varcof)
 }
 
-risk(c(0.11, 2, 30, 22, 0.5))
+risk(z_observed=0.11, lower = 2, upper = 30, a_priori = 22, varcof = 0.5)
 
+#` Old implementation of cumulative normal distribution.
+#` For comparison use only.
 cumnor2 <- function(x){
 	if (x > 0.0) {
     	x_abs = x
@@ -98,4 +114,3 @@ cumnor2 <- function(x){
   	temp
   }
 }
-
