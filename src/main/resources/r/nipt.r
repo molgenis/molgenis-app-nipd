@@ -2,19 +2,58 @@ library(fBasics)
 library(gdata)
 require(akima)
 
+last <- function(x) { tail(x, n = 1) }
+
+bilinearInterpolate <- function(xvec, yvec, tab, x, y) {
+	x1index = last(which(xvec<=x))
+	x2index = which(xvec>=x)[1]
+	y1index = last(which(yvec<=y))
+	y2index = which(yvec>=y)[1]
+
+	x1 = xvec[x1index]
+	x2 = xvec[x2index]
+	y1 = yvec[y1index]
+	y2 = yvec[y2index]
+
+	Q11 = tab[x1index, y1index]
+	Q12 = tab[x1index, y2index]
+	Q21 = tab[x2index, y1index]
+	Q22 = tab[x2index, y2index]
+
+	area = (x2 - x1) * (y2 - y1)
+	f11 = (x2 - x) * (y2 - y)
+	f21 = (x - x1) * (y2 - y)
+	f12 = (x2 - x) * (y - y1) 
+	f22 = (x - x1) * (y - y1)
+
+	if (x2 == x1) {
+		if( y2 == y1 ) {
+			Q11
+		} else {
+			Q11 + (Q12 - Q11) * (y - y1) / (y2 - y1)
+		}
+	} else if (y2 == y1) {
+		Q11 + (Q21 - Q11) * (x - x1) / (x2 - x1)
+	} else {
+		(Q11*f11 + Q21*f21 + Q12*f12 + Q22*f22) / area
+	}
+}
+
 #` Interpolate risk table.
 #` Uses linear bivariate interpolation.
 #` @todo this is not exactly the same as bilinear interpolation!
-#` @param t table, read in using read.table
+#` @param tab table, read in using read.table
 #` @param ga gestational age in weeks
 #` @param ma mother's age in years
-interpolateRisk <- function (t, ga, ma) {
-	m = sapply(dimnames(t)[[1]], strtoi)
-	g = sapply(names(t), function(x) strtoi(substring(x, 2)))
+interpolateRisk <- function (tab, ga, ma) {
+	m = sapply(dimnames(tab)[[1]], strtoi)
+	g = sapply(names(tab), function(x) strtoi(substring(x, 2)))
 	gvec = rep(g, each = length(m))
 	mvec = rep(m, times = length(g))
-	rvec = unmatrix(as.matrix(t))
-	linearInterpp(gvec, mvec, rvec, ga, ma)$z
+	rvec = unmatrix(as.matrix(tab))
+	ra = linearInterpp(gvec, mvec, rvec, ga, ma)$z
+	rb = bilinearInterpolate(xvec = m, yvec = g, tab = tab, x = ma, y = ga)
+	data.frame(akima = ra, bilinear = rb)
 }
 
 #` Interpolates a priori risk from three risk tables
@@ -54,7 +93,7 @@ risk <- function(z_observed, lower, upper, a_priori, varcof) {
 	}
 	interval = upper - lower
 	a_priori = 1 / a_priori
-	ptris3 = (cumnor(z_observed - upper) - cumnor2(z_observed - lower)) / interval;
+	ptris3 = (cumnor(z_observed - upper) - cumnor(z_observed - lower)) / interval;
 	#this is the average likelihood of the Normal distribution
     #over an interval Z_observed - upper to Z_observed - lower
     #this result is not obtained by direct integration,
