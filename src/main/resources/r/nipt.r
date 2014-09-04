@@ -5,21 +5,25 @@ require(akima)
 last <- function(x) { tail(x, n = 1) }
 
 bilinearInterpolate <- function(xvec, yvec, tab, x, y) {
+	# find indices of grid points surrounding x, y
 	x1index = last(which(xvec<=x))
 	x2index = which(xvec>=x)[1]
 	y1index = last(which(yvec<=y))
 	y2index = which(yvec>=y)[1]
 
+	# lookup coordinates of the grid points
 	x1 = xvec[x1index]
 	x2 = xvec[x2index]
 	y1 = yvec[y1index]
 	y2 = yvec[y2index]
 
+	# lookup values of the grid points
 	Q11 = tab[x1index, y1index]
 	Q12 = tab[x1index, y2index]
 	Q21 = tab[x2index, y1index]
 	Q22 = tab[x2index, y2index]
 
+	# compute areas for each corner (see wikipedia)
 	area = (x2 - x1) * (y2 - y1)
 	f11 = (x2 - x) * (y2 - y)
 	f21 = (x - x1) * (y2 - y)
