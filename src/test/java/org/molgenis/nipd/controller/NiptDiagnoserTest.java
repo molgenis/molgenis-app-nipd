@@ -16,59 +16,14 @@ public class NiptDiagnoserTest
 	@Test
 	public void getAPrioriRiskTest() throws IOException
 	{
-		Assert.assertEquals(new HomeController().getAPrioriRisk("30", "30", "13"), "16722");
+		Assert.assertEquals(new HomeController().getAPrioriRisk("13", "20", "20"), "14656");
 	}
 	
-//	@Test
-//	public void compile() throws IOException
-//	{
-//		StringBuffer output = new StringBuffer();
-//		 
-//		Process p;
-//		try {
-//			p = Runtime.getRuntime().exec("ls;");
-//			p.waitFor();
-//			BufferedReader reader = 
-//                            new BufferedReader(new InputStreamReader(p.getInputStream()));
-// 
-//                        String line = "";			
-//			while ((line = reader.readLine())!= null) {
-//				output.append(line + "\n");
-//			}
-// 
-//		} catch (Exception e) {
-//			System.err.println(">> ERROR! >>");
-//			e.printStackTrace();
-//		}
-//		System.out.println(">> NO ERROR");
-// 
-//		System.out.println(" >> " + output.toString());
-////		System.out.println(executeCommand("cd src/main/resources/delphi;ls"));
-//		//fpc -Mdelphi src/main/resources/delphi/commandline_risk_nipt_augustus.dpr
-//		assertTrue(true);
-//	}
-//
-//	private String executeCommand(String command) {
-//		 
-//		StringBuffer output = new StringBuffer();
-// 
-//		Process p;
-//		try {
-//			p = Runtime.getRuntime().exec(command);
-//			p.waitFor();
-//			BufferedReader reader = 
-//                            new BufferedReader(new InputStreamReader(p.getInputStream()));
-// 
-//                        String line = "";			
-//			while ((line = reader.readLine())!= null) {
-//				output.append(line + "\n");
-//			}
-// 
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-// 
-//		return output.toString();
-// 
-//	}
+
+	@Test
+	public void getRiskTest() throws IOException
+	{
+		Assert.assertEquals(new HomeController().getRisk("2", "30", ".5", "4", ".001"), "20.7"); // "0.2070116"
+	}
+	
 }

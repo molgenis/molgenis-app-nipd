@@ -18,7 +18,7 @@
 			<h2>Input</h2>
 			<table class="table" border=10 bordercolor="#E8EAEB">
 			<tbody>
-			<@tableRow "llim" "" "Lower limit fetal DNA" "any" "2" "%" "" />
+			<@tableRow "llim" "" "Lower limit fetal DNA" "any" "1" "%" "" />
 			<@tableRow "ulim"  "" "Upper limit fetal DNA" "any" "30" "%" "" />
 			<@tableRow "varcof"  "" "Variation coefficient" "0.1" "0.5" "%" "" />
 			<@tableRow "zscore"  "" "Observed Z score" "any" "4" "" "" />
@@ -27,6 +27,19 @@
 				<td colspan="2"><p><i>*The a priori risk may be estimated based on maternal/gestational age and the type of trisomy.</i></p></td>
 				<td></td>
 			</tr>
+			<tr class="muted" bgcolor='#bce8f1'>
+				<td class="tdLabel" style="text-align:right">Previous trisomy</td>
+				<td>
+					<select name="previousTrisomy" class="span6">
+						<option>None</option>
+						<option>T18</option>
+						<option>T18</option>
+						<option>T21</option>
+						<option>Other</option>
+					</select>
+				</td>
+				<td class="span2"></td>
+			</tr>			
 			<@tableRow "gestAge" "bgcolor='#bce8f1'"   "Gestational age" "any" "" "weeks" "" />
 			<@tableRow "matAge" "bgcolor='#bce8f1'"  "Maternal age" "any" "" "years" "" />
 			<tr class="muted" bgcolor='#bce8f1'>
@@ -64,5 +77,4 @@
 		<#--P CLASS="muted">A stand alone version of this software can be downloaded <a href="https://molgenis26.target.rug.nl/downloads/nipd_standalone.zip">here</a>.</P-->
 	</div>	
 </div>
-
 <@footer/>

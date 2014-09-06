@@ -1,10 +1,10 @@
 (function($, molgenis) {
 	"use strict";
-
-	function getAPrioriRisk(gestAge, matAge, trisomyType) {
+	
+	function getAPrioriRisk(trisomyType, gestAge, matAge) {
 		$.ajax({
 			type : 'GET',
-			url : molgenis.getContextUrl() + '/getAPrioriRisk/' + gestAge + '/' + matAge + '/' + trisomyType,
+			url : molgenis.getContextUrl() + '/getAPrioriRisk/' + trisomyType + '/'+ gestAge + '/' + matAge,
 			success : function(text) {
 				$('#apriori').val(text);
 				if ("?" == text) {
@@ -16,10 +16,10 @@
 		});
 	}
 
-	function getRisk(zscore, llim, ulim, apriori, varcof) {
+	function getRisk(llim, ulim, varcof, zscore, apriori) {
 		$.ajax({
 			type : 'GET',
-			url : molgenis.getContextUrl() + '/getRisk/' + zscore + '/' + llim + '/' + ulim + '/' + apriori + '/' + varcof,
+			url : molgenis.getContextUrl() + '/getRisk/' + llim + '/' + ulim + '/' + '/' + varcof + '/' + zscore + '/' + apriori,
 			success : function(risk) {
 				$('#trisomyChance').html(risk);
 				$('#showResult').attr('style', 'display:block');
@@ -56,8 +56,8 @@
 				} ], 'error');
 			} else {
 				$('#showResult').attr('style', 'display:block');
-				var apriori = $('#apriori').val();
-				$('#results').html(getRisk($('#zscore').val(), $('#llim').val(), $('#ulim').val(), apriori, $('#varcof').val()));
+				var apriori = 1 / $('#apriori').val();
+				$('#results').html(getRisk($('#llim').val(), $('#ulim').val(), $('#varcof').val(), $('#zscore').val(), apriori));
 
 				$('#llimResult').html($('#llim').val());
 				$('#ulimResult').html($('#ulim').val());
@@ -70,7 +70,24 @@
 		$('#calculate-a-priori-risk-btn').click(function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			getAPrioriRisk($('#gestAge').val(), $('#matAge').val(), $('#trisomyType .active').val());
+			
+			if ($('#gestAge').val() < 10 || 40 < $('#gestAge').val()) {
+				molgenis.createAlert([ {
+					'message' : 'Gestational age must have a value between 10 and 40.'
+				} ], 'error');
+				
+				$('#apriori').val('');
+				$('#apriori').attr('style', 'background-color:#fff');
+			} else if ($('#matAge').val() < 20 || 44 < $('#matAge').val()) {
+				molgenis.createAlert([ {
+					'message' : 'Maternal age must have a value between 20 and 44.'
+				} ], 'error');
+				
+				$('#apriori').val('');
+				$('#apriori').attr('style', 'background-color:#fff');
+			} else {
+				getAPrioriRisk($('#trisomyType .active').val(), $('#gestAge').val(), $('#matAge').val());
+			}
 		});
 	});
 }($, window.top.molgenis = window.top.molgenis || {}));

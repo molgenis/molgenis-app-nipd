@@ -32,7 +32,7 @@ public class HomeController extends MolgenisPluginController
 	private static final Logger logger = Logger.getLogger(HomeController.class);
 	public static final String ID = "home";
 	public static final String URI = MolgenisPluginController.PLUGIN_URI_PREFIX + ID;
-	private boolean onMac, onLinux;
+	private boolean onMac, onLinux, R;
 
 	public HomeController()
 	{
@@ -40,6 +40,7 @@ public class HomeController extends MolgenisPluginController
 
 		this.onMac = org.apache.commons.lang3.SystemUtils.IS_OS_MAC;
 		this.onLinux = org.apache.commons.lang3.SystemUtils.IS_OS_LINUX;
+		this.R = true;
 	}
 
 	@RequestMapping
@@ -48,24 +49,30 @@ public class HomeController extends MolgenisPluginController
 		return "view-home";
 	}
 
-	@RequestMapping(value = "getRisk/{zscore}/{llim}/{ulim}/{apriori}/{varcof:.+}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "getRisk/{llim}/{ulim}/{varcof:.+}/{zscore}/{apriori}", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String getRisk(@PathVariable("zscore") String zscore, @PathVariable("llim") String llim,
-			@PathVariable("ulim") String ulim, @PathVariable("apriori") String apriori,
-			@PathVariable("varcof") String varcof) throws IOException
+	public String getRisk(	@PathVariable("llim") String llim,
+							@PathVariable("ulim") String ulim,
+							@PathVariable("varcof") String varcof,
+							@PathVariable("zscore") String zscore,
+							@PathVariable("apriori") String apriori) throws IOException
 	{
 		try
 		{
 			String binary = "No executable";
 			if (onMac) binary = "trisomy_risk_mac";
 			if (onLinux) binary = "trisomy_risk_unix";
-			String pathToBinary = this.getClass().getResource("/tools/" + binary).getPath();
-			File workDir = new File(pathToBinary.substring(0, pathToBinary.length() - binary.length()));
+			if (R) binary = "RScript niptRisk.R";
+			String pathToBinary = Resources.getResource(this.getClass(), "/r/").getPath();
+			File workDir = new File(pathToBinary);
 
-			String command = pathToBinary + " " + zscore + " " + llim + " " + ulim + " " + apriori + " " + varcof;
+//			Double aPrioriChance = 1 / Double.valueOf(apriori);
+			
+			String command =  binary + " " + llim + " " + ulim + " " + varcof + " " + zscore+ " " + apriori;
 
 			// round on two decimals
-			return "" + ((double)  Math.round(Double.valueOf(executeCommand(command, workDir)) * 100)) / 100;
+			String result = "" + ((double)  Math.round(Double.valueOf(executeCommand(command, workDir)) * 10000) / 100);
+			return result;
 		}
 		catch (Throwable e)
 		{
@@ -74,10 +81,10 @@ public class HomeController extends MolgenisPluginController
 		}
 	}
 
-	@RequestMapping(value = "getAPrioriRisk/{gestationalAgeWeeks}/{maternalAgeYears}/{trisomyType}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "getAPrioriRisk/{trisomyType}/{gestationalAgeWeeks}/{maternalAgeYears}", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String getAPrioriRisk(@PathVariable("gestationalAgeWeeks") String gestationalAgeWeeks,
-			@PathVariable("maternalAgeYears") String maternalAgeYears, @PathVariable("trisomyType") String trisomyType)
+	public String getAPrioriRisk(@PathVariable("trisomyType") String trisomyType, @PathVariable("gestationalAgeWeeks") String gestationalAgeWeeks,
+			@PathVariable("maternalAgeYears") String maternalAgeYears)
 			throws IOException
 	{
 		try
@@ -85,10 +92,11 @@ public class HomeController extends MolgenisPluginController
 			String binary = "No executable";
 			if (onMac) binary = "trisomy_a_priori_risk_mac";
 			if (onLinux) binary = "trisomy_a_priori_risk_unix";
-			String pathToBinary = Resources.getResource(this.getClass(), "/tools/" + binary).getPath();
-			File workDir = new File(pathToBinary.substring(0, pathToBinary.length() - binary.length()));
+			if (R) binary = "RScript niptAPrioriRisk.R";
+			String pathToBinary = Resources.getResource(this.getClass(), "/r/").getPath();
+			File workDir = new File(pathToBinary);
 
-			String command = pathToBinary + " " + gestationalAgeWeeks + " " + maternalAgeYears + " " + trisomyType;
+			String command = binary + " " + trisomyType + " " + gestationalAgeWeeks + " " + maternalAgeYears;
 
 			// return value x means a chance of 1 in x; but we want to return 1/x
 			String value = executeCommand(command, workDir);
