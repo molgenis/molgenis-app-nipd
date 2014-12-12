@@ -68,6 +68,13 @@ cumnor <- function(x){
 	pnorm(x, mean = 0, sd = 1, lower.tail = FALSE, log.p = FALSE)
 }
 
+post.test.probability = function(lower, upper, zObserved, aPriori)
+{
+	interval = upper - lower
+	intermediate = (cumnor(zObserved - upper) - cumnor(zObserved - lower)) / interval;
+	p = intermediate * aPriori / (intermediate * aPriori + (1 - aPriori) * dnorm(zObserved))
+}
+
 #` Computes chance (value 0..1) on a trisomy, P(H | E)
 # Where:
 # H is is the hypothesis trisomy
@@ -104,12 +111,17 @@ risk <- function(lower, upper, varcof, zObserved, aPriori)
 			lower = lower - 0.001
 			upper = upper + 0.001
 		}
-
-		interval = upper - lower
-
-		p = (cumnor(zObserved - upper) - cumnor(zObserved - lower)) / interval;
-		p = p * aPriori / (p * aPriori + (1 - aPriori) * dnorm(zObserved))
+		
 	}
+	
+	lower.broad		= lower
+	upper.broad 	= upper
+	lower.center 	= lower.broad + 5/22 	* (upper.broad - lower.broad)
+	upper.center	= lower.broad + 17/22	* (upper.broad - lower.broad)
+	weight.broad	= 0.4
+	weight.center	= 0.6
+	
+	p = weight.broad * post.test.probability(lower.broad, upper.broad, zObserved, aPriori) + weight.center * post.test.probability(lower.center, upper.center, zObserved, aPriori)
 	
 	round(p * 1e5) / 1e3
 }
