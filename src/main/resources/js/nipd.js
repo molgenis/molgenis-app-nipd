@@ -34,7 +34,7 @@ $(function() {
 				$('#llimResult').html(data.lower + ' %');
 				$('#ulimResult').html(data.upper + ' %');
 				$('#varcofResult').html(data.varcof + ' %');
-				$('#zscoreResult').html(data.z + ' %');
+				$('#zscoreResult').html(data.z);
 				$('#aprioriResult').html(data.aPriori + ' cases');
 			}
 		});
