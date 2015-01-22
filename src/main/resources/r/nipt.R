@@ -1,3 +1,8 @@
+# TODO: remove cat(...), and in niptAPrioriRisk.R, niptRisk.R: call source of script via
+#		source(fromJSON(paste0(readLines(curl( 'http://localhost:8080/api/vi/scripts/nipt'  ))))$content)
+
+cat("
+
 #` Read table from text file
 get.table = function(file.name)	read.table(file.name, header = TRUE, skip=2, check.names = FALSE)
 
@@ -123,5 +128,8 @@ risk <- function(lower, upper, varcof, zObserved, aPriori)
 	
 	p = weight.broad * post.test.probability(lower.broad, upper.broad, zObserved, aPriori) + weight.center * post.test.probability(lower.center, upper.center, zObserved, aPriori)
 	
-	round(p * 1e5) / 1e3
+	# return with one decimal
+	sprintf('%.1f', 100 * p)
 }
+
+")
