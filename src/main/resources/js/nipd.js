@@ -14,22 +14,22 @@
     }
 
     function getRisk() {
-        var dataFromForm = getInputFromForm();
+        var formData = getInputFromForm();
+        // retrieve the data used to look up the a priori risk
         var aPrioriLookupData = $('#aPriori').data('lookupFormData');
         $.ajax({
             type: 'GET',
             url: '/scripts/niptRisk/run',
-            data: dataFromForm,
+            data: formData,
             dataType: 'json'
         }).then(function (risk) {
-            updateRisk(dataFromForm, aPrioriLookupData, risk);
+            updateRisk(formData, aPrioriLookupData, risk);
         });
     }
 
-    function updateRisk(dataFromForm, aPrioriLookupData, risk) {
+    function updateRisk(formData, aPrioriLookupData, risk) {
         $('#resultsPanel').show();
         if (aPrioriLookupData) {
-            console.log(aPrioriLookupData)
             $('#aPrioriManualResult').hide();
             $('#aPrioriLookupResult').show();
             $('#gestAgeResult').text(aPrioriLookupData.gaw + " weeks " + aPrioriLookupData.gad + " days");
@@ -40,11 +40,11 @@
             $('#aPrioriLookupResult').hide();
         }
         $('#trisomyChance').text(risk.risk + ' %');
-        $('#llimResult').text(dataFromForm.lower + ' %');
-        $('#ulimResult').text(dataFromForm.upper + ' %');
-        $('#varcofResult').text(dataFromForm.varcof + ' %');
-        $('#zscoreResult').text(dataFromForm.z);
-        $('#aprioriResult').text(dataFromForm.aPriori + ' cases');
+        $('#llimResult').text(formData.lower + ' %');
+        $('#ulimResult').text(formData.upper + ' %');
+        $('#varcofResult').text(formData.varcof + ' %');
+        $('#zscoreResult').text(formData.z);
+        $('#aprioriResult').text(formData.aPriori + ' cases');
     }
 
     ///////// A priori risk lookup form //////////
@@ -78,8 +78,7 @@
         $mainPanel.collapse('toggle');
         $lookup.collapse('toggle');
         $aPriori.val(aPrioriRisk.aPriori);
-        // remember the lookup form data used to compute this aPrioriRisk
-        console.log('set');
+        // store the form data used to look up this aPrioriRisk
         $aPriori.data('lookupFormData', lookupFormData);
         if (aPrioriRisk === "?") {
             $aPriori.attr('style', 'background-color:#d9534f');
@@ -117,29 +116,19 @@
     /////////// On Load ////////////
 
     $(function () {
-        var $mainForm = $('#main-form'),
-            $lookupForm = $('#lookup-form'),
-            $calculateRiskBtn = $('#calculate-risk-btn'),
-            $calculateAPrioriRiskBtn = $('#calculate-a-priori-risk-btn');
+        $('#main-form').validate({
+            submitHandler: getRisk
+        });
 
-        $mainForm.validate();
-        $lookupForm.validate();
+        $('#lookup-form').validate({
+            submitHandler: function () {
+                if (!validateGestationAge() || !validateMaternalAge()) {
+                    return;
+                }
+                getAPrioriRisk();
+            }
+        });
 
         $('#aPriori').on('change keyup paste', resetAPrioriLookupData);
-
-        $calculateRiskBtn.click(function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            getRisk();
-        });
-
-        $calculateAPrioriRiskBtn.click(function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (!validateGestationAge() || !validateMaternalAge()) {
-                return;
-            }
-            getAPrioriRisk();
-        });
     });
 })($);
