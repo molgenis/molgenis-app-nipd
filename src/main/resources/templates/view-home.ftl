@@ -129,7 +129,6 @@
 			</div>
 			<div style="clear:both"></div>
 		</div>
-		<P CLASS="text-muted">Please see <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</P>
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-danger">
@@ -163,5 +162,35 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col col-md-12 alert alert-info" role="alert">
+			<p>Please make sure to read the <button class="btn btn-warning" data-toggle="modal" data-target="#disclaimer">Warnings</button>.
+			See the <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</p>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="disclaimer">
+  		<div class="modal-dialog">
+		    <div class="modal-content panel-warning">
+		      <div class="modal-header panel-heading">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h3 class="modal-title">Warning</h3>
+		      </div>
+		      <div class="modal-body">
+		        <h4>Using the tool, please keep the following in mind:</h4>
+				<p>The result of the calculation is an estimation, not an exact number.</p>
+				<p>The calculations are primarily made for a trisomy 13, 18 or 21 and will not exclude other chromosomal aberrations.</p>
+				<p>The user is responsible for the input parameters, i.e. a high Z score in combination with a low percentage of DNA might reflect a &ldquo;failed&rdquo; test in which case the tool is not usable.</p>
+				<p>A patient with a positive or high risk score should be referred for genetic counseling and offered invasive prenatal diagnosis for confirmation of test results. This result may occur due to placental, maternal, or fetal mosaicism or neoplasm; vanishing twin and in these cases will not reflect the fetus.</p>
+				<p>A negative or low risk score does not ensure an unaffected pregnancy.</p>
+				<p>Management decisions, including termination of the pregnancy, should not be based on the results of this test alone.</p>
+				<p>The results of this test, including its benefits and limitations, should be discussed with a qualified healthcare professional.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </div>
 <@footer/>
