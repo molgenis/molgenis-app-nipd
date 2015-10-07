@@ -52,9 +52,8 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label text-muted" for="zscore">Observed z-score</label>
 						<div class="col-md-5">
-							<div class="input-group">				
+							<div class="input">				
 		                		<input id="zscore" name="zscore" class="form-control"  type="text" value="4" data-rule-range="[-5,40]" data-rule-number="true" data-msg-number="Please enter a value between -5 and 40." data-msg-range="Please enter a value between -5 and 40." required="required">
-			                	<div class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;</div>
 			                </div>
 			                <label for="zscore" class="error" style="display: none"></label>
 		                </div>                
