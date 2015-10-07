@@ -75,8 +75,8 @@
         var $aPriori = $('#aPriori'),
             $mainPanel = $('#main-panel'),
             $lookup = $('#lookup');
-        $mainPanel.collapse('toggle');
-        $lookup.collapse('toggle');
+        $mainPanel.collapse('show');
+        $lookup.collapse('hide');
         $aPriori.val(aPrioriRisk.aPriori);
         // store the form data used to look up this aPrioriRisk
         $aPriori.data('lookupFormData', lookupFormData);
