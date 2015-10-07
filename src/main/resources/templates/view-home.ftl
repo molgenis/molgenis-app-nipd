@@ -120,7 +120,7 @@
 										</label>
 									</div>
 								</div>
-								<button class="btn btn-default" data-toggle="collapse" data-target="#main-panel" data-parent="#parent-collapse">Cancel</button>
+								<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#main-panel" data-parent="#parent-collapse">Cancel</button>
 								<button id="calculate-a-priori-risk-btn" type="submit" class="btn btn-warning">Look up <span class="glyphicon glyphicon-chevron-right"></span></button>
 							</div>
 						</form>
