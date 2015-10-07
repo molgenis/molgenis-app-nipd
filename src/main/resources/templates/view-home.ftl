@@ -137,18 +137,29 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Result</h3>
 				</div>
-				<div id="resultsPanel" class="panel-body" style="visibility:hidden;">
+				<div id="resultsPanel" class="panel-body" style="display:none;">
 					<P>The chance on a trisomy is estimated:</P>
 					<h2 style="text-align: center"><span id="trisomyChance" class="label label-danger label-as-badge"></span></h2>
-					<BR>
-					<TABLE CLASS="table text-muted table-striped table-bordered">
-						<p>The estimation is based on:</p>
-						<TR><TD>Lower limit fetal DNA:</TD><TD><SPAN id="llimResult"></SPAN></TD></TR>
-						<TR><TD>Upper limit fetal DNA:</TD><TD><SPAN id="ulimResult"></SPAN></TD></TR>
-						<TR><TD>Variation coefficient:</TD><TD><SPAN id="varcofResult"></SPAN></TD></TR>
-						<TR><TD>Observed z-score:     </TD><TD><SPAN id="zscoreResult"></SPAN></TD></TR>
-						<TR><TD>A priori risk: 1 in   </TD><TD><SPAN id="aprioriResult"></SPAN></TD></TR>
-					</TABLE>
+					<br/>
+					<p>The estimation is based on:</p>
+					<table class="table text-muted table-striped table-bordered">
+						<tr><td>Lower limit fetal DNA:</td><td><span id="llimResult"></span></td></tr>
+						<tr><td>Upper limit fetal DNA:</td><td><span id="ulimResult"></span></td></tr>
+						<tr><td>Variation coefficient:</td><td><span id="varcofResult"></span></td></tr>
+						<tr><td>Observed z-score:</td><td><span id="zscoreResult"></span></td></tr>
+						<tr><td>A priori risk: 1 in</td><td><span id="aprioriResult"></span></td></tr>
+					</table>
+					<div id="aPrioriManualResult">
+						<p>The a priori risk was entered <b>manually</b>.</p>
+					</div>
+					<div id="aPrioriLookupResult">
+						<p>The a priori risk was based on:</p>
+						<table class="table text-muted table-striped table-bordered">
+							<tr><td>Gestational age:</td><td><span id="gestAgeResult"></span></td></tr>
+							<tr><td>Maternal age:</td><td><span id="matAgeResult"></span></td></tr>
+							<tr><td>Type:</td><td><span id="trisomyTypeResult"></span></td></tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
