@@ -81,14 +81,16 @@
         // store the form data used to look up this aPrioriRisk
         $aPriori.data('lookupFormData', lookupFormData);
         if (aPrioriRisk === "?") {
-            $aPriori.attr('style', 'background-color:#d9534f');
+            $aPriori.css('background-color', '#d9534f');
         } else {
-            $aPriori.attr('style', 'background-color:#dff0d8');
+            $aPriori.css('background-color', '#dff0d8');
         }
     }
 
     function resetAPrioriLookupData() {
-        $('#aPriori').data('lookupFormData', null);
+        var $aPriori = $('#aPriori');
+        $aPriori.data('lookupFormData', null);
+        $aPriori.css('background-color', '');
     }
 
     ///////////  validation ///////////
