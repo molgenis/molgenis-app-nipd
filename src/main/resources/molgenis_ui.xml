@@ -10,7 +10,8 @@
         <menu label="Admin" name="admin">
 	        <plugin id="permissionmanager" name="Permission Manager" url="permissionmanager"/>
 	        <plugin id="usermanager" name="User Manager" url="usermanager"/>
-       </menu>
+	        <plugin id="menumanager" name="Menu Manager" url="menumanager"/>
+        </menu>
 		<plugin id="useraccount" name="Account" url="useraccount"/>
 	</menu>
 </molgenis>
