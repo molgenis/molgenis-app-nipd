@@ -181,7 +181,7 @@
 				<p>The result of the calculation is an estimation, not an exact number.</p>
 				<p>The calculations are primarily made for a trisomy 13, 18 or 21 and will not exclude other chromosomal aberrations.</p>
 				<p>The user is responsible for the input parameters, i.e. a high Z score in combination with a low percentage of DNA might reflect a &ldquo;failed&rdquo; test in which case the tool is not usable.</p>
-				<p>A patient with a positive or high risk score should be referred for genetic counseling and offered invasive prenatal diagnosis for confirmation of test results. This result may occur due to placental, maternal, or fetal mosaicism or neoplasm; vanishing twin and in these cases will not reflect the fetus.</p>
+				<p>A patient with a positive or high risk score should be referred for genetic counseling and offered invasive prenatal diagnosis for confirmation of test results. This result may occur due to placental, maternal, or fetal mosaicism or neoplasm, vanishing twin and in these cases will not reflect the fetus.</p>
 				<p>A negative or low risk score does not ensure an unaffected pregnancy.</p>
 				<p>Management decisions, including termination of the pregnancy, should not be based on the results of this test alone.</p>
 				<p>The results of this test, including its benefits and limitations, should be discussed with a qualified healthcare professional.</p>
