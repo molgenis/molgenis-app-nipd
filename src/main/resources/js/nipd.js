@@ -34,7 +34,7 @@
             $('#aPrioriLookupResult').show();
             $('#gestAgeResult').text(aPrioriLookupData.gaw + " weeks " + aPrioriLookupData.gad + " days");
             $('#matAgeResult').text(aPrioriLookupData.may + " years " + aPrioriLookupData.mam + " months");
-            $('#trisomyTypeResult').text("T" + aPrioriLookupData.chrom);
+            $('#trisomyTypeResult').text("Trisomy " + aPrioriLookupData.chrom);
         } else {
             $('#aPrioriManualResult').show();
             $('#aPrioriLookupResult').hide();

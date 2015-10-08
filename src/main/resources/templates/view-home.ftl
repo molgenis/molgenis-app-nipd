@@ -155,7 +155,7 @@
 						<table class="table text-muted table-striped table-bordered">
 							<tr><td>Gestational age:</td><td><span id="gestAgeResult"></span></td></tr>
 							<tr><td>Maternal age:</td><td><span id="matAgeResult"></span></td></tr>
-							<tr><td>Type:</td><td><span id="trisomyTypeResult"></span></td></tr>
+							<tr><td>Type:</td><td><b><span id="trisomyTypeResult" style="color: black;"></span></b></td></tr>
 						</table>
 					</div>
 				</div>
@@ -164,8 +164,8 @@
 	</div>
 	<div class="row">
 		<div class="col col-md-12 alert alert-info" role="alert">
-			<p>Please make sure to read the <button class="btn btn-warning" data-toggle="modal" data-target="#disclaimer">Warnings</button>.
-			See the <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</p>
+			<p>Please make sure to read the <button class="btn btn-warning" data-toggle="modal" data-target="#disclaimer">Warnings</button> before use.
+			In case of questions please contact <a href="mailto:l.johansson@umcg.nl" target="_top">L. Johansson</a> for further information.</p>
 		</div>
 	</div>
 	
@@ -181,7 +181,7 @@
 				<p>The result of the calculation is an estimation, not an exact number.</p>
 				<p>The calculations are primarily made for a trisomy 13, 18 or 21 and will not exclude other chromosomal aberrations.</p>
 				<p>The user is responsible for the input parameters, i.e. a high Z score in combination with a low percentage of DNA might reflect a &ldquo;failed&rdquo; test in which case the tool is not usable.</p>
-				<p>A patient with a positive or high risk score should be referred for genetic counseling and offered invasive prenatal diagnosis for confirmation of test results. This result may occur due to placental, maternal, or fetal mosaicism or neoplasm; vanishing twin and in these cases will not reflect the fetus.</p>
+				<p>A patient with a positive or high risk score should be referred for genetic counseling and offered invasive prenatal diagnosis for confirmation of test results. This result may occur due to placental, maternal, or fetal mosaicism or neoplasm, vanishing twin and in these cases will not reflect the fetus.</p>
 				<p>A negative or low risk score does not ensure an unaffected pregnancy.</p>
 				<p>Management decisions, including termination of the pregnancy, should not be based on the results of this test alone.</p>
 				<p>The results of this test, including its benefits and limitations, should be discussed with a qualified healthcare professional.</p>
