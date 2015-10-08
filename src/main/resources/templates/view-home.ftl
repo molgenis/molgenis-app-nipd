@@ -52,9 +52,8 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label text-muted" for="zscore">Observed z-score</label>
 						<div class="col-md-5">
-							<div class="input-group">				
+							<div class="input">				
 		                		<input id="zscore" name="zscore" class="form-control"  type="text" value="4" data-rule-range="[-5,40]" data-rule-number="true" data-msg-number="Please enter a value between -5 and 40." data-msg-range="Please enter a value between -5 and 40." required="required">
-			                	<div class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;</div>
 			                </div>
 			                <label for="zscore" class="error" style="display: none"></label>
 		                </div>                
@@ -121,8 +120,8 @@
 										</label>
 									</div>
 								</div>
-								<button class="btn btn-default" data-toggle="collapse" data-target="#main-panel" data-parent="#parent-collapse">Cancel</button>
-								<button id="calculate-a-priori-risk-btn" type="submit" class="btn btn-warning"><b>Look up</b> <span class="glyphicon glyphicon-chevron-right"></span></button>
+								<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#main-panel" data-parent="#parent-collapse">Cancel</button>
+								<button id="calculate-a-priori-risk-btn" type="submit" class="btn btn-warning">Look up <span class="glyphicon glyphicon-chevron-right"></span></button>
 							</div>
 						</form>
 					</div>
@@ -130,28 +129,68 @@
 			</div>
 			<div style="clear:both"></div>
 		</div>
-		<P CLASS="text-muted">Please see <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</P>
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-danger">
 				<div class="panel-heading">
 					<h3 class="panel-title">Result</h3>
 				</div>
-				<div id="resultsPanel" class="panel-body" style="visibility:hidden;">
+				<div id="resultsPanel" class="panel-body" style="display:none;">
 					<P>The chance on a trisomy is estimated:</P>
 					<h2 style="text-align: center"><span id="trisomyChance" class="label label-danger label-as-badge"></span></h2>
-					<BR>
-					<TABLE CLASS="table text-muted table-striped table-bordered">
-						<p>The estimation is based on:</p>
-						<TR><TD>Lower limit fetal DNA:</TD><TD><SPAN id="llimResult"></SPAN></TD></TR>
-						<TR><TD>Upper limit fetal DNA:</TD><TD><SPAN id="ulimResult"></SPAN></TD></TR>
-						<TR><TD>Variation coefficient:</TD><TD><SPAN id="varcofResult"></SPAN></TD></TR>
-						<TR><TD>Observed z-score:     </TD><TD><SPAN id="zscoreResult"></SPAN></TD></TR>
-						<TR><TD>A priori risk: 1 in   </TD><TD><SPAN id="aprioriResult"></SPAN></TD></TR>
-					</TABLE>
+					<br/>
+					<p>The estimation is based on:</p>
+					<table class="table text-muted table-striped table-bordered">
+						<tr><td>Lower limit fetal DNA:</td><td><span id="llimResult"></span></td></tr>
+						<tr><td>Upper limit fetal DNA:</td><td><span id="ulimResult"></span></td></tr>
+						<tr><td>Variation coefficient:</td><td><span id="varcofResult"></span></td></tr>
+						<tr><td>Observed z-score:</td><td><span id="zscoreResult"></span></td></tr>
+						<tr><td>A priori risk: 1 in</td><td><span id="aprioriResult"></span></td></tr>
+					</table>
+					<div id="aPrioriManualResult">
+						<p>The a priori risk was entered <b>manually</b>.</p>
+					</div>
+					<div id="aPrioriLookupResult">
+						<p>The a priori risk was based on:</p>
+						<table class="table text-muted table-striped table-bordered">
+							<tr><td>Gestational age:</td><td><span id="gestAgeResult"></span></td></tr>
+							<tr><td>Maternal age:</td><td><span id="matAgeResult"></span></td></tr>
+							<tr><td>Type:</td><td><span id="trisomyTypeResult"></span></td></tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col col-md-12 alert alert-info" role="alert">
+			<p>Please make sure to read the <button class="btn btn-warning" data-toggle="modal" data-target="#disclaimer">Warnings</button>.
+			See the <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</p>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="disclaimer">
+  		<div class="modal-dialog">
+		    <div class="modal-content panel-warning">
+		      <div class="modal-header panel-heading">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h3 class="modal-title">Warning</h3>
+		      </div>
+		      <div class="modal-body">
+		        <h4>Using the tool, please keep the following in mind:</h4>
+				<p>The result of the calculation is an estimation, not an exact number.</p>
+				<p>The calculations are primarily made for a trisomy 13, 18 or 21 and will not exclude other chromosomal aberrations.</p>
+				<p>The user is responsible for the input parameters, i.e. a high Z score in combination with a low percentage of DNA might reflect a &ldquo;failed&rdquo; test in which case the tool is not usable.</p>
+				<p>A patient with a positive or high risk score should be referred for genetic counseling and offered invasive prenatal diagnosis for confirmation of test results. This result may occur due to placental, maternal, or fetal mosaicism or neoplasm; vanishing twin and in these cases will not reflect the fetus.</p>
+				<p>A negative or low risk score does not ensure an unaffected pregnancy.</p>
+				<p>Management decisions, including termination of the pregnancy, should not be based on the results of this test alone.</p>
+				<p>The results of this test, including its benefits and limitations, should be discussed with a qualified healthcare professional.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </div>
 <@footer/>
