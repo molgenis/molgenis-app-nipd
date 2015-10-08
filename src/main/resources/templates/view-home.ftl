@@ -164,8 +164,8 @@
 	</div>
 	<div class="row">
 		<div class="col col-md-12 alert alert-info" role="alert">
-			<p>Please make sure to read the <button class="btn btn-warning" data-toggle="modal" data-target="#disclaimer">Warnings</button>.
-			See the <a href="https://molgenis26.target.rug.nl/downloads/20140605_ppvfornipt_UserManual.pdf" target="_blank">user manual</a> or contact <a href="mailto:g.j.te.meerman@umcg.nl" target="_top">G.J. te Meerman</a> for further information.</p>
+			<p>Please make sure to read the <button class="btn btn-warning" data-toggle="modal" data-target="#disclaimer">Warnings</button> before use.
+			In case of questions please contact <a href="mailto:l.johansson@umcg.nl" target="_top">L. Johansson</a> for further information.</p>
 		</div>
 	</div>
 	
