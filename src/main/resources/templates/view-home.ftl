@@ -155,7 +155,7 @@
 						<table class="table text-muted table-striped table-bordered">
 							<tr><td>Gestational age:</td><td><span id="gestAgeResult"></span></td></tr>
 							<tr><td>Maternal age:</td><td><span id="matAgeResult"></span></td></tr>
-							<tr><td>Type:</td><td><span id="trisomyTypeResult"></span></td></tr>
+							<tr><td>Type:</td><td><b><span id="trisomyTypeResult" style="color: black;"></span></b></td></tr>
 						</table>
 					</div>
 				</div>
