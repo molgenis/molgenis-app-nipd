@@ -8,6 +8,5 @@ setwd('~/.molgenis/nipd/data/filestore')
 #` load table
 tab = get.table("T${chrom}risk.txt")
 
-if (! "rjson" %in% rownames(installed.packages(lib.loc='.'))) install.packages('rjson', lib='.', repos="http://cran.us.r-project.org")
-library(rjson, lib.loc='.')
+library(rjson)
 cat(toJSON(list(aPriori = aPrioriRisk(tab, ${gaw}, ${gad}, ${may}, ${mam}), chrom = ${chrom}, gaw = ${gaw}, gad = ${gad}, may = ${may}, mam = ${mam})))
